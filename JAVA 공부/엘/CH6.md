@@ -232,7 +232,7 @@ class MyMath3{
 class Data_1{
     int value;
 }
-class Data_2{  // 생성자 오버라이딩(메소드 이름을 같고 매개변수가 다름)
+class Data_2{  // 생성자 오버로딩(메소드 이름을 같고 매개변수가 다름)
     Data_2() {}
     Data_2(int x){
         value = x;
