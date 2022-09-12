@@ -21,6 +21,8 @@ class Chile extends Parent{
 
 <img src="img/%EC%83%81%EC%86%8D.png" alt="상속" style="zoom:77%;" align="left" />
 
+
+
 *  Parent의 멤버는 1개 Child는 자신의 멤버 1개 + 상속받은 멤버 1개 = 2개
 
 ```java
@@ -315,7 +317,7 @@ public class Ex7_22 {
         Time t = new Time();
         t.hour = 25; // 멤버변수에 직접 접근 -> private로 막혀서 접근 불가
         t.setHour(25); // 메소드를 통한 간접 접근이지만, if문에 의해 hour는 변하지 않음
-        t.setHout(21); // 메소드를 통한 간접 접근으로 hour는 21로 저장됨
+        t.setHour(21); // 메소드를 통한 간접 접근으로 hour는 21로 저장됨
     }
 }
 ```
@@ -472,8 +474,8 @@ Product p2 = new Computer();              ----->      p[0] = new Tv();
 Product p3 = new Audio();                             p[1] = new Computer();
                                                       p[2] = new Audio();
 
-               0x100 (Tv)                                                             0x100 (Tv)
-p1[0x100] ---> [ 0 ]price                 ----->      p1[0x100] --->[0x100]p[0]  ---> [ 0 ]price
+               0x100 (Tv)                                           0x001             0x100 (Tv)
+p1[0x100] ---> [ 0 ]price                 ----->       p[0x001] --->[0x100]p[0]  ---> [ 0 ]price
                [ 0 ]bonusPoint                                                        [ 0 ]bonusPoint
                0x200 (Computer)                                                       0x200 (Computer)
 p2[0x200] ---> [ 0 ]price                                           [0x200]p[1]  ---> [ 0 ]price
