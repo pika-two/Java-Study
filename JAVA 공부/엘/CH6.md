@@ -33,7 +33,7 @@
 
 * 인스턴스 : 특정 클래스로부터 생성된 객체
 
-<img src="C:%5CUsers%5CLG%5CDesktop%5CJava-Study%5CJAVA%20%EA%B3%B5%EB%B6%80%5C%EC%97%98%5Cimg%5Cinstance.png" align="left">
+<img src="img/instance.png" alt="instance" align="left" />
 
 ### 객체 생성 및 사용
 
@@ -87,7 +87,49 @@ c.width = 200;   ->  Card.width = 200;
 c.height = 300   ->  Card.height = 300;
 ```
 
-+++++++ 변수의 초기화(ch38~41) 작성할 것!!!!
+### 변수 초기화
+
+* 지역변수(lv)는 수동 초기화를 해야함(사용전에 꼭!!!!)
+
+* 멤버변수(iv, cv)는 자동 초기화된다.
+
+* 멤버변수(iv, cv) 초기화 방법
+
+  * 자동 초기화 : 0으로 초기화 됨
+  * 명시적 초기화(=) : 대입 연산자를 사용한 초기화 방법
+
+  ```java
+  class Car{
+      int door = 4; // 기본형 변수의 초기화
+      Engine e = new Engine(); // 참조형 변수의 초기화; e는 Engine 객체의 주소를 가지고 있음
+  }
+  ```
+
+  * 초기화 블럭
+    * 인스턴스 초기화 블럭 :  생성자 사용
+    * 클래스 초기화 블럭 : static {}
+
+  * 생성자(iv 초기화)
+    
+  
+  ```java
+  class InitTest{
+      static int cv = 1; // 명시적 초기화
+      int iv = 1;        // 명시적 초기화
+      
+      static { cv = 2; } // 클래스 초기화 블럭
+      { iv = 2 }         // 인스턴스 초기화 블럭
+      
+      InitTest(){  //  생성자
+          iv = 3;
+      }
+  }
+  
+  //객체 생성
+   InitTest it = new InitTest();  
+  ```
+  
+  <img src="img/%EC%B4%88%EA%B8%B0%ED%99%94.jpg" alt="초기화" />
 
 ### 메서드
 
@@ -109,7 +151,7 @@ c.height = 300   ->  Card.height = 300;
 * 메서드 내에서 인스턴스 변수(iv) 사용 불가
 
 ```java
-Class MyMath2{
+class MyMath2{
     long a, b; // 인스턴스 변수(iv)
     
     long add(){
@@ -136,23 +178,130 @@ class MyMathTest2{
   ```
 
 * Static는 언제 사용? iv사용여부에 따라 Static, 인스턴드 메서드 선택하면 됨
+
 * 인스턴스 변수는 객체 생성 후 사용가능
+
 * 클래스 변수는 언제나 사용가능
+
 * 인스턴스 메서드는 iv, cv, 인스턴스 메서드, Static메서드 모두 사용가능
+
 * 클래스 메서드는 cv, Static메서드만 사용가능
 
-  
+### 오버로딩(Overloading)
 
-  
+* 한 클래스 안에 같은 이름의 메서드 여러개를 정의하는 것
 
-  
+##### 오버로딩이 성립하기 위한 조건
 
-  
+1. 메서드 이름이 같아야 한다.
+2. 매개변수의 개수 또는 타입이 달라야 한다.
+3. 반환 타입은 영향 없다.
 
-  
+```java
+// 매개변수는 다르지만 같은 의미의 기능 수행
+class MyMath3{
+    int add(int a, int b){  
+        System.out.print("int add(int a, int b) - ");
+        return a+b;
+    }
+    long add(long a, long b){
+        System.out.print("long add(long a, long b) - ");
+        return a+b;
+    }
+    int add(int[] a){
+        System.out.print("int add(int[] a) - ");
+        int result = 0;
+        for (int i=0; i<a.length; i++)
+            result += a[i];
+        return result;
+   }
+}
+```
 
-  
+### 생성자(Constructor)
 
-  
+* 인스턴스가 생성될 때마다 호출되는 '인스턴스 초기화 메서드'
 
-  
+#### 생성자 작성시 지켜야할 조건
+
+* 생성자의 이름이 클래스 이름과 같아야 한다.
+* 리턴값이 없다.(void를 안붙임)
+* 모든 클래스는 반드시 생성자 필수!
+
+```java
+class Data_1{
+    int value;
+}
+class Data_2{  // 생성자 오버로딩(메소드 이름을 같고 매개변수가 다름)
+    Data_2() {}
+    Data_2(int x){
+        value = x;
+    }
+}
+class Ex6_11{
+    public static void main(String[] args){
+        Data_1 d1 = new Data_1();  // 생성자가 없으니 자동으로 생성해줌
+        Data_2 d2 = new Data_2();  
+    }
+}
+```
+
+### this()
+
+#### 생성자 this()
+
+* 생성자에서 다른 생성자 호출할 때 사용
+
+```java
+class Car2{
+    String color;
+    String gearType;
+    int door;
+    
+    // 생성자 1번 
+    Car2()  {
+        this("white", "auto", 4); //Car2(String color, String gearType, int door)[생성자 3번] 호출
+    }
+    
+    // 생성자 2번 
+    Car2 (String color) {
+        this(color, "auto", 4); //Car2(String color, String gearType, int door)[생성자 3번] 호출
+    }
+    
+    // 생성자 3번
+    Car2(String color, String gearType, int door) {  
+        this.color = color;       // 참조변수 this
+        this.gearType = gearType; // 참조변수 this
+        this.door = door;         // 참조변수 this
+    }
+}
+```
+
+ #### 참조변수 this()
+
+* 인스턴스 자신을 가리키는 참조변수
+* 인스턴스 메서드(생성자 포함)에서 사용 가능
+* 지역변수(lv)와 인스턴스 변수(iv)를 구별할 때 사용
+
+```java
+Car(String c, String g, int d){                        Car(String color, String gearType, int door){
+    // color는 iv, c는 lv                                   // this.color는 iv, color는 lv 
+   	color = c;                         --->                this.color = color;
+    geatType = g;                                          this.gearType = gearType;
+    door = d;                                              this.door = door;
+}                                                       }
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
