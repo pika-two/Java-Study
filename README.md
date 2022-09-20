@@ -4,7 +4,10 @@
 ## 1. 자바를 공부하기
  - https://www.youtube.com/user/MasterNKS 
  - 출처 : 남궁성의 정석코딩(유튜브)
-
+ - https://www.inflearn.com/course/%EC%9E%90%EB%B0%94-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%9E%85%EB%AC%B8
+ - 자바 프로그래밍 입문
+ - https://wikidocs.net/book/31
+ - 점프 투 자바
 
 ## 2. 규칙
 - 각 폴더에 자기가 공부한 것을 날짜별 혹은 강의별로 정리하기
